@@ -53,8 +53,27 @@ public class UserDao implements DAOInterface<User> {
 
     @Override
     public int insert(User obj) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+        SessionFactory sessionFactory = HibernateUlti.getSessionFactory();
+        try {
+            if (sessionFactory != null) {
+                Session session = sessionFactory.openSession();
+                try {
+                    Transaction transaction = session.beginTransaction();
+                    session.save(obj.getClass().getName(), obj);
+                    transaction.commit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    session.close();
+                    sessionFactory.close();
+                }
+
+            }
+        } catch (HibernateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override
@@ -98,5 +117,13 @@ public class UserDao implements DAOInterface<User> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
     }
-
+    
+    public UserDao() {
+		// TODO Auto-generated constructor stub
+	}
+    
+    public static UserDao getInstance()
+    {
+    	return new UserDao();
+    }
 }
