@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface DAOInterface<T> {
-    public T selectbyId(String id);
+    public T selectbyId(T obj);
 
     public List selectAll();
 

@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class userController
  */
-public class userController extends HttpServlet {
+public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Default constructor.
 	 */
-	public userController() {
+	public UserController() {
 		// TODO Auto-generated constructor stub
 	}
 
