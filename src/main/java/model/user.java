@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,9 +28,9 @@ public class User {
     @Column
     private String phoneNo;
     @Column
-    private String dateOfBirth;
+    private Date dateOfBirth;
     @Column
-    private String registedDate;
+    private Date registedDate;
 
     public String getUserId() {
         return userId;
@@ -94,19 +96,19 @@ public class User {
         this.phoneNo = phoneNo;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getRegistedDate() {
+    public Date getRegistedDate() {
         return registedDate;
     }
 
-    public void setRegistedDate(String registedDate) {
+    public void setRegistedDate(Date registedDate) {
         this.registedDate = registedDate;
     }
 
@@ -114,7 +116,7 @@ public class User {
     }
 
     public User(String userId, String userName, String password, String fullName, Boolean gender, String location,
-            String email, String phoneNo, String dateOfBirth, String registedDate) {
+            String email, String phoneNo, Date dateOfBirth, Date registedDate) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
@@ -128,7 +130,7 @@ public class User {
     }
 
     public User(String userId, String userName, String password, String fullName, Boolean gender, String location,
-            String dateOfBirth) {
+            Date dateOfBirth) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
