@@ -1,32 +1,25 @@
-<%@ page language="java" contentType="text/html; UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="header.css">
-</head>
-
-<body>
-    <div class="navbar-container">
-        <div class="layout-button">
-            <a href="#Home.jsp" class="logo"><img src="#linklogo" alt="logo.png"></a>
-        </div>
-        <form action="#UserController" method="post" class="searchbar column-3" name="">
-            <input class="searchbar-input" name="" type="text" placeholder="Search" style="width : 200px">
-            <button type="submit" onclick="">Search</button>
-        </form>
-        <div class="layout-button">
-            <a class="treding-layout column-1" href="">Trending</a>
-            <a class="home-layout column-1" href="">Home</a>
-            <a class="profile-layout column-1" href="">Profile</a>
-        </div>
-        <div class="setting-button">
-            <a href="" class="setting-layout column-1">Setting</a>
-        </div>
-    </div>
-</body>
-</html>
+<%@page import="model.User"%>
+<link rel="stylesheet" type="text/css" href="../style/header.css">
+<% 
+	User user = (User) session.getAttribute("user");
+	String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+	+ request.getContextPath();
+%>
+<div class="navbar-container">
+	<div class="icon-button">
+		<a href="<%= path %>/user-view/home.html" class="icon"><img class="icon-image"
+			src="https://i.ibb.co/CQwbd35/logo-mykitchen.jpg"
+			alt="logo-mykitchen" height="30px" width="auto"></a>
+	</div>
+	<form action="#UserController" method="post" class="search-bar" name="">
+		<input type="text" placeholder="Search here..." class="input-box" />
+		<button class="searc-button">Search</button>
+	</form>
+	<div class="layout-button">
+		<a class="treding-layout" href="">Trending</a> <a class="home-layout"
+			href="">Home</a> <a class="profile-layout" href="">Profile</a>
+	</div>
+	<div class="setting-button">
+		<a href="#Setting" class="setting-layout">Setting</a>
+	</div>
+</div>
