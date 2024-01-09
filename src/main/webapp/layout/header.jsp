@@ -15,6 +15,7 @@
 		<input type="text" placeholder="Search here..." class="input-box" />
 		<button class="searc-button">Search</button>
 	</form>
+	<% if (user!=null){ %>
 	<div class="layout-button">
 		<a class="treding-layout" href="">Trending</a> <a class="home-layout"
 			href="">Home</a> <a class="profile-layout" href="">Profile</a>
@@ -22,4 +23,13 @@
 	<div class="setting-button">
 		<a href="#Setting" class="setting-layout">Setting</a>
 	</div>
+	<% }
+	 else{ %>
+	 <div class="register-button">
+		<a href="#register" class="setting-layout">Setting</a>
+	</div>
+	<div class="login-button">
+		<a href="#login" class="setting-layout">Setting</a>
+	</div>
+	<% }; %>
 </div>
