@@ -32,4 +32,5 @@
 		<a href="#login" class="setting-layout">Setting</a>
 	</div>
 	<% }; %>
+	<%-- note --%>
 </div>
