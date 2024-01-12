@@ -145,5 +145,6 @@ public class User {
         return "user [userId=" + userId + ", userName=" + userName + ", gender=" + gender + ", registedDate="
                 + registedDate + "]";
     }
-
+    
+    //good luck
 }
