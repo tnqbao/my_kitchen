@@ -18,10 +18,21 @@
          <input type="text" placeholder="  Search here..." class="input-box" />
          <button class="search-button">Search</button>
       </form>
-      <div class="right-button">
+      <% if (user!=null){ %>
+	<div class="layout-button">
+		<a class="treding-layout" href="">Trending</a> <a class="home-layout"
+			href="">Home</a> <a class="profile-layout" href="">Profile</a>
+	</div>
+	<div class="setting-button">
+		<a href="#Setting" class="setting-layout">Setting</a>
+	</div>
+	<% }
+	 else{ %>
+	  <div class="right-button">
          <a href="#register" class="setting-layout">Login</a>
          <a href="#login" class="setting-layout">Register</a>
       </div>
+	<% }; %>
    </div>
 </body>
 

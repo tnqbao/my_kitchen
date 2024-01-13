@@ -1,10 +1,5 @@
 <%@page import="model.User"%>
 <link rel="stylesheet" type="text/css" href="../style/header.css">
-<%
-User user = (User) session.getAttribute("user");
-String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-		+ request.getContextPath();
-%>
 <div class="navbar-container">
       <div class="icon-button">
          <a href="%= path %>/user-view/home.html" class="icon"><img class="icon-image"
