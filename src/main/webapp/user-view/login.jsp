@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/login.css">
 <title>login</title>
 </head>
 <%
@@ -18,10 +17,98 @@ error_username = (error_username != null) ? error_username : "";
 String error_password = (String) session.getAttribute("error_password");
 error_password = (error_password != null) ? error_password : "";
 
-String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-		+ request.getContextPath();
-%>
 
+%>
+<style>
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	overflow: hidden;
+	padding: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+}
+
+.container>.login-form {
+	overflow: hidden;
+	padding: 15px;
+	display: flex;
+	flex-wrap: wrap;
+	background-color: #dedcdc;
+	max-width: 60%;/*  */
+	max-height: 40%;
+	width: 60%;
+	height: 40%;
+	margin-top: 5%;
+	justify-content: center;
+	border-color: black;
+	border-radius: 8px;
+}
+
+
+.login-form > .login-password , .login-username 
+{
+	flex-basis: 80%;
+	text-align: center;
+	margin-bottom: 2%;
+	height: 70px;
+}
+.login-form > .submit-button, .login-label, .forgot-link, .check-box
+{
+	flex-basis: 80%;
+	text-align: center;
+	margin-bottom: 2%;
+}
+
+input[type="text"], input[type="password"]
+{
+	width: 80%;
+	height: 40px;
+	text-indent: 10px;
+	font-size: 24px;
+}
+
+.login-form > .submit-button{
+	width: 66.6%;
+
+}
+
+.error
+{
+	color: red;
+	text-align: left;
+	text-indent:60px; 
+}
+
+/* .login-form > button
+{
+	width: 100%;
+	height:100%;
+
+}  */
+
+/* .login-form > .forgot-link 
+{
+	text-align: left; 
+	flex-basis: 80%;
+}
+ */
+
+
+</style>
 <body>
 	<%@ include file="../layout/header.jsp"%>
 	<div class="container">

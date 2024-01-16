@@ -82,8 +82,8 @@ public class UserController extends HttpServlet {
 			}
 			else
 			{
-				session.setAttribute("error_username", "username or password not correctly!");
-				session.setAttribute("error_password", "username or password not correctly!");
+				session.setAttribute("error_username", "Username or password not correctly!");
+				session.setAttribute("error_password", "Username or password not correctly!");
 				url = "/user-view/login.jsp"; 
 			}
 		}
