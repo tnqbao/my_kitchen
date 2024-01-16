@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 public class Encode {
     public static String toSHA1(String text) {
         String result = null;
-        String salt = "enter your private salt";
+        String salt = "enter your salt";
         text = text + salt;
         try {
             byte[] dataBytes = text.getBytes(); // String to Byte Array

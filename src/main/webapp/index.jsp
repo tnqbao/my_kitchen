@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%@ include file="../layout/header.jsp" %>
+ <h1 style="text-align: center">Hello AE</h2>
 </body>
 </html>

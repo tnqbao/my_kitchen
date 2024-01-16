@@ -55,6 +55,12 @@ input[type="text"], input[type="password"]
 	width: 66.6%;
 
 }
+
+.error
+{
+	color: red;
+}
+
 /* .login-form > button
 {
 	width: 100%;
