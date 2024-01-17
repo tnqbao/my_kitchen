@@ -16,8 +16,6 @@ String error_username = (String) session.getAttribute("error_username");
 error_username = (error_username != null) ? error_username : "";
 String error_password = (String) session.getAttribute("error_password");
 error_password = (error_password != null) ? error_password : "";
-
-
 %>
 <style>
 * {
