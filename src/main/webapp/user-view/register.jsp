@@ -1,11 +1,10 @@
-<%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>login</title>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
 </head>
 <%
 String username = (String) session.getAttribute("username");
@@ -17,50 +16,47 @@ error_username = (error_username != null) ? error_username : "";
 String error_password = (String) session.getAttribute("error_password");
 error_password = (error_password != null) ? error_password : "";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/inputFrame.css' />">
 <style>
-.forgot-link , .check-box
-{
-flex-basis: 80%;
-	text-align: center;
-	margin-bottom: 2%;
-}
 </style>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/inputFrame.css' />">
 <body>
 	<%@ include file="../layout/header.jsp"%>
 	<div class="container">
-		<form class="form" name="login-form" id="login-form"
+		<form class="form" name="register-form" id="register-form"
 			action="<%=path%>/UserController" method="post">
-			<div class="label" style="font-weight: bolder;">
-				<h1>Login</h1>
+			<div class="label">
+				<h1>Register</h1>
 			</div>
 			<div class="input-box">
-				<input type="text" placeholder="Username" name="login-username"
+				<input type="text" placeholder="Username" name="register-username"
 					value="<%=username%>">
 				<p class="error">
 					<%=error_username%>
 				</p>
 			</div>
 			<div class="input-box">
-				<input type="password" placeholder="Password" name="login-password"
-					value="<%=password%>">
+				<input type="password" placeholder="Password"
+					name="register-password" value="<%=password%>">
+				<p class="error">
+					<%=error_password%>
+				</p>
+			</div>
+			<div class="input-box">
+				<input type="password" placeholder="Password"
+					name="register-password" value="<%=password%>">
 				<p class="error">
 					<%=error_password%>
 				</p>
 			</div>
 			<div class="submit-button">
-				<button type="submit" style="width: 30%; height: 40px; font-weight: border: font-size: 30px;">Submit</button>
-			</div>
-			<div class="check-box">
-				Saving password? <input type="checkbox" class="save password"
-					name="checkbox">
+				<button type="submit" style="width: 30%; height: 40px; font-weight: border: font-size: 30px; ">Submit</button>
 			</div>
 			<div class="reference-link">
-				<a href="<%=path%>/user-view/forgot.jsp" class="forgot-link">Forgot
-					password? Click here!</a>
+				<a href="<%=path%>/user-view/login.jsp" class="reference-link">Already have account? Click here!</a>
 			</div>
-			<input type="hidden" value="login" class="login-form" name="action">
+			<input type="hidden" value="register" class="form" name="action">
 		</form>
 	</div>
 </body>

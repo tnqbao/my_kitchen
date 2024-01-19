@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import java.io.IOException;
 
@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-import DAO.UserDAO;
+import dao.UserDAO;
 import model.User;
 
 /**
@@ -64,30 +63,36 @@ public class UserController extends HttpServlet {
 		//xu ly
 		String url = "/index.jsp";
 		
-		
-		if((username.isBlank() || username.isEmpty()) || (password.isBlank() || password.isEmpty()))
+		User exitstUser = (User) session.getAttribute("user");
+		if (exitstUser != null)
 		{
-			if (username.isBlank() || username.isEmpty()) session.setAttribute("error_username", "Please enter username!");
-			if (password.isBlank() || username.isEmpty()) session.setAttribute("error_password", "Please enter password!");
-			url = "/user-view/login.jsp"; 
+			url = "index.jsp";
 		}
 		else
 		{
-			User user = UserDAO.getInstance().SelectByUsernameAndPassword(username, password);
-			if (user != null)
+			if((username.isBlank() || username.isEmpty()) || (password.isBlank() || password.isEmpty()))
 			{
-				session.setAttribute("save_password", "true".equalsIgnoreCase(checkbox) ? "true" : "false");
-				session.setAttribute("password", "true".equalsIgnoreCase("true") ? password : "");
-				session.setAttribute("user", user);
+				if (username.isBlank() || username.isEmpty()) session.setAttribute("error_username", "Please enter username!");
+				if (password.isBlank() || username.isEmpty()) session.setAttribute("error_password", "Please enter password!");
+				url = "/user-view/login.jsp"; 
 			}
 			else
 			{
-				session.setAttribute("error_username", "Username or password not correctly!");
-				session.setAttribute("error_password", "Username or password not correctly!");
-				url = "/user-view/login.jsp"; 
+				User user = UserDAO.getInstance().SelectByUsernameAndPassword(username, password);
+				if (user != null)
+				{
+					session.setAttribute("save_password", "true".equalsIgnoreCase(checkbox) ? "true" : "false");
+					session.setAttribute("password", "true".equalsIgnoreCase("true") ? password : "");
+					session.setAttribute("user", user);
+				}
+				else
+				{
+					session.setAttribute("error_username", "Username or password not correctly!");
+					session.setAttribute("error_password", "Username or password not correctly!");
+					url = "/user-view/login.jsp"; 
+				}
 			}
 		}
-
 		
 		
 //		user = UserDao.getInstance();

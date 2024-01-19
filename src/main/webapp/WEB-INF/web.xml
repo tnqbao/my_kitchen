@@ -8,7 +8,7 @@
   	<servlet-name>userController</servlet-name>
   	<display-name>userController</display-name>
   	<description></description>
-  	<servlet-class>controller.userController</servlet-class>
+  	<servlet-class>controller.UserController</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>userController</servlet-name>

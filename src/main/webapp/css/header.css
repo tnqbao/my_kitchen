@@ -1,7 +1,7 @@
 .navbar-container {
 	box-sizing: border-box;
 	margin: 0;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Itim;
 	overflow: hidden;
 	background-color: #555555;
 	padding: 20px;
@@ -56,7 +56,7 @@
 .search-bar>.input-box {
 	flex-basis: 65%;
 	height: 100%;
-	min-height:50px;
+	min-height: 50px;
 	font-size: medium;
 	flex: 1;
 	border: none;
@@ -95,4 +95,11 @@
 	gap: 50px;
 	flex-wrap: nowrap;
 	align-items: center;
+	margin-left: 40px;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+	font-weight: bolder;
 }
