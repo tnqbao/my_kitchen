@@ -20,7 +20,7 @@ error_password = (error_password != null) ? error_password : "";
 <style>
 .forgot-link , .check-box
 {
-flex-basis: 80%;
+	flex-basis: 80%;
 	text-align: center;
 	margin-bottom: 2%;
 }
@@ -57,7 +57,7 @@ flex-basis: 80%;
 					name="checkbox">
 			</div>
 			<div class="reference-link">
-				<a href="<%=path%>/user-view/forgot.jsp" class="forgot-link">Forgot
+				<a href="<%=path%>/user-view/forgot.jsp" class="reference-link" style="color: blue; " >Forgot
 					password? Click here!</a>
 			</div>
 			<input type="hidden" value="login" class="login-form" name="action">

@@ -70,6 +70,11 @@ input[type="password"] {
   text-indent: 60px;
 }
 
+.reference-link
+{
+	color: blue; 
+}
+
 /* .form > button
 {
 	width: 100%;

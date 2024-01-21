@@ -54,7 +54,7 @@ error_password = (error_password != null) ? error_password : "";
 				<button type="submit" style="width: 30%; height: 40px; font-weight: border: font-size: 30px; ">Submit</button>
 			</div>
 			<div class="reference-link">
-				<a href="<%=path%>/user-view/login.jsp" class="reference-link">Already have account? Click here!</a>
+				<a href="<%=path%>/user-view/login.jsp" class="reference-link" >Already have account? Click here!</a>
 			</div>
 			<input type="hidden" value="register" class="form" name="action">
 		</form>
