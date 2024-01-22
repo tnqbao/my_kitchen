@@ -56,8 +56,8 @@ public class UserController extends HttpServlet {
 	private void login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String username = request.getParameter("login-username");
-		String password = request.getParameter("login-password");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		String checkbox = request.getParameter("checkbox");
 		//
 		//xu ly

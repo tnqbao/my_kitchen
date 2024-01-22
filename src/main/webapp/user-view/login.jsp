@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>login</title>
+<title>Login</title>
 </head>
 <%
 String username = (String) session.getAttribute("username");
@@ -36,14 +36,14 @@ error_password = (error_password != null) ? error_password : "";
 				<h1>Login</h1>
 			</div>
 			<div class="input-box">
-				<input type="text" placeholder="Username" name="login-username"
+				<input type="text" placeholder="Username" name="username"
 					value="<%=username%>">
 				<p class="error">
 					<%=error_username%>
 				</p>
 			</div>
 			<div class="input-box">
-				<input type="password" placeholder="Password" name="login-password"
+				<input type="password" placeholder="Password" name="password"
 					value="<%=password%>">
 				<p class="error">
 					<%=error_password%>

@@ -4,17 +4,21 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Register</title>
 </head>
 <%
 String username = (String) session.getAttribute("username");
 username = (username != null) ? username : "";
 String password = (String) session.getAttribute("password");
 password = (password != null) ? password : "";
+String confirmPassword = (String) session.getAttribute("confirmPassword");
+confirmPassword = (confirmPassword != null) ? confirmPassword : "";
 String error_username = (String) session.getAttribute("error_username");
 error_username = (error_username != null) ? error_username : "";
 String error_password = (String) session.getAttribute("error_password");
 error_password = (error_password != null) ? error_password : "";
+String error_confirmPassword = (String) session.getAttribute("error_confirmPassword");
+error_confirmPassword = (error_confirmPassword != null) ? error_confirmPassword : "";
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet" type="text/css"
@@ -30,7 +34,7 @@ error_password = (error_password != null) ? error_password : "";
 				<h1>Register</h1>
 			</div>
 			<div class="input-box">
-				<input type="text" placeholder="Username" name="register-username"
+				<input type="text" placeholder="Username" name="username"
 					value="<%=username%>">
 				<p class="error">
 					<%=error_username%>
@@ -38,16 +42,16 @@ error_password = (error_password != null) ? error_password : "";
 			</div>
 			<div class="input-box">
 				<input type="password" placeholder="Password"
-					name="register-password" value="<%=password%>">
+					name="password" value="<%=password%>">
 				<p class="error">
 					<%=error_password%>
 				</p>
 			</div>
 			<div class="input-box">
-				<input type="password" placeholder="Password"
-					name="register-password" value="<%=password%>">
+				<input type="password" placeholder="Confirm password"
+					name="confirmPassword" value="<%=confirmPassword%>">
 				<p class="error">
-					<%=error_password%>
+					<%=error_confirmPassword%>
 				</p>
 			</div>
 			<div class="submit-button">
