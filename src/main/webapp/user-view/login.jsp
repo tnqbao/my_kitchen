@@ -1,11 +1,14 @@
 <%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/inputFrame.css' />">
 </head>
 <%
 String username = (String) session.getAttribute("username");
@@ -25,15 +28,13 @@ error_password = (error_password != null) ? error_password : "";
 	margin-bottom: 2%;
 }
 </style>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/inputFrame.css' />">
 <body>
 	<%@ include file="../layout/header.jsp"%>
 	<div class="container">
 		<form class="form" name="login-form" id="login-form"
 			action="<%=path%>/UserController" method="post">
 			<div class="label" style="font-weight: bolder;">
-				<h1>Login</h1>
+				<h1><strong>Login</strong></h1>
 			</div>
 			<div class="input-box">
 				<input type="text" placeholder="Username" name="username"
@@ -50,7 +51,7 @@ error_password = (error_password != null) ? error_password : "";
 				</p>
 			</div>
 			<div class="submit-button">
-				<button type="submit" style="width: 30%; height: 40px; font-weight: border: font-size: 30px;">Submit</button>
+				<button type="submit" style="width: 30%; height: 40px; font-weight: border: font-size: 30px;"><i class="fa-solid fa-right-to-bracket"></i></button>
 			</div>
 			<div class="check-box">
 				Saving password? <input type="checkbox" class="save password"
