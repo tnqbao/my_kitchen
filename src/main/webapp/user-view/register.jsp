@@ -55,13 +55,13 @@ error_confirmPassword = (error_confirmPassword != null) ? error_confirmPassword 
 				</p>
 			</div>
 			<div class="submit-button">
-				<button type="submit" style="width: 30%; height: 40px; font-weight: border: font-size: 30px; ">Submit</button>
+				<button type="submit" style="width: 30%; height: 40px; font-weight: border: font-size: 30px; "><strong>Register</strong></button>
 			</div>
 			<div class="reference-link">
 				<a href="<%=path%>/user-view/login.jsp" class="reference-link" >Already have account? Click here!</a>
 			</div>
 			<input type="hidden" value="register" class="form" name="action">
 		</form>
-	</div>
+	</div> 
 </body>
 </html>
