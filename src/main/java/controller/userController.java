@@ -139,9 +139,11 @@ public class UserController extends HttpServlet {
 			if (user != null)
 			{
 //				session.setAttribute("save_password", "true".equalsIgnoreCase(checkbox) ? "true" : "false");
-				session.setAttribute("password", "true".equalsIgnoreCase("true") ? password : "");
-				session.setAttribute("user", user);
-			}
+//				session.setAttribute("password", "true".equalsIgnoreCase("true") ? password : "");
+//				session.setAttribute("user", user);
+				/*
+				 * // if ()
+				 */			}
 			else
 			{
 				session.setAttribute("error_username", "Username or password not correctly!");
@@ -170,4 +172,5 @@ public class UserController extends HttpServlet {
 		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
+	
 }
