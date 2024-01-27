@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -125,7 +126,6 @@ public class UserController extends HttpServlet {
 		//
 		//xu ly
 		String url = "/registerInformation.jsp";
-		
 		if((username.isBlank() || username.isEmpty()) || (password.isBlank() || password.isEmpty()))
 		{
 			if (username.isBlank() || username.isEmpty()) session.setAttribute("error_username", "Please enter username!");
@@ -135,39 +135,32 @@ public class UserController extends HttpServlet {
 		}
 		else
 		{
-			User user = UserDAO.getInstance().SelectByUsernameAndPassword(username, password);
-			if (user != null)
+			if (UserDAO.getInstance().isAccountExitst(username)) 
 			{
-//				session.setAttribute("save_password", "true".equalsIgnoreCase(checkbox) ? "true" : "false");
-//				session.setAttribute("password", "true".equalsIgnoreCase("true") ? password : "");
-//				session.setAttribute("user", user);
-				/*
-				 * // if ()
-				 */			}
+				session.setAttribute("error_username", "Account already existed!");
+				url = "/user-view/register.jsp"; 
+			}
 			else
 			{
-				session.setAttribute("error_username", "Username or password not correctly!");
-				session.setAttribute("error_password", "Username or password not correctly!");
-				url = "/user-view/login.jsp"; 
+				if(!confirmPassword.equals(password))
+				{
+					session.setAttribute("error_confirmPassword", "Your password doesn't match!");
+					url = "/user-view/register.jsp"; 
+				}
+				else
+				{
+					User user = new User();
+					Random rd = new Random();
+					user.setUserId("0000" + rd.nextInt(1000) + 1);
+					user.setUserName(username);
+					user.setPassword(password);
+					session.setAttribute("user", user);
+				}
 			}
 		}
-//		User exitstUser = (User) session.getAttribute("user");
-//		if (exitstUser != null)
-//		{
-//			url = "index.jsp";
-//		}
-//		else
-//		{
-//			
-//		}
-		
-		
-//		user = UserDao.getInstance();
-		//Session
 		session.setAttribute("username", username);
 //		session.setAttribute("password", password);
 		
-		//xuly
 		
 		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);

@@ -158,7 +158,33 @@ public class UserDAO implements DAOInterface<User> {
 	public UserDAO() {
 		// TODO Auto-generated constructor stub
 	}
-
+		
+	public boolean isAccountExitst(String username)
+	{
+		SessionFactory sessionFactory = HibernateUlti.getSessionFactory();
+		if (sessionFactory != null)
+		{
+			try {
+				Session session = sessionFactory.openSession();
+				try {
+					Transaction transaction = session.beginTransaction();
+					String hql = "from user u where u.userName = :username";
+					Query query = session.createQuery(hql);
+					query.setParameter("username", username);
+					return (query.getFirstResult()!=0) ? true : false;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				finally {
+					session.close();
+				}
+			} catch (HibernateException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+		
+	}
 	public static UserDAO getInstance() {
 		return new UserDAO();
 	}
