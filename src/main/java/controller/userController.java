@@ -36,22 +36,23 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		switch (action) {
-			case "login":
-				login(request,response);
-				break;
-			case "register":
-				register(request, response);
-				break;
-			case "registerInformation":
-				break;
-			case "registerEmail":
-				break;
-			case "registerPhoneNumber":
-				break;
-			case "welcome":
-				break;
-			default:
-				break;
+		case "login":
+			login(request, response);
+			break;
+		case "register":
+			register(request, response);
+			break;
+		case "registerInformation":
+			registerInformation(request, response);
+			break;
+		case "registerEmail":
+			break;
+		case "registerPhoneNumber":
+			break;
+		case "welcome":
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -65,93 +66,85 @@ public class UserController extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private void login(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String checkbox = request.getParameter("checkbox");
 		//
-		//xu ly
+		// xu ly
 		String url = "/index.jsp";
-		
+
 		User exitstUser = (User) session.getAttribute("user");
-		if (exitstUser != null)
-		{
-			url = "index.jsp";
-		}
-		else
-		{
-			if((username.isBlank() || username.isEmpty()) || (password.isBlank() || password.isEmpty()))
-			{
-				if (username.isBlank() || username.isEmpty()) session.setAttribute("error_username", "Please enter username!");
-				if (password.isBlank() || password.isEmpty()) session.setAttribute("error_password", "Please enter password!");
-				url = "/user-view/login.jsp"; 
-			}
-			else
-			{
+		if (exitstUser != null) {
+			url = "/index.jsp";
+		} else {
+			if ((username.isBlank() || username.isEmpty()) || (password.isBlank() || password.isEmpty())) {
+				if (username.isBlank() || username.isEmpty())
+					session.setAttribute("error_username", "Please enter username!");
+				if (password.isBlank() || password.isEmpty())
+					session.setAttribute("error_password", "Please enter password!");
+				url = "/user-view/login.jsp";
+			} else {
 				User user = UserDAO.getInstance().SelectByUsernameAndPassword(username, password);
-				if (user != null)
-				{
+				if (user != null) {
 					session.setAttribute("save_password", "true".equalsIgnoreCase(checkbox) ? "true" : "false");
 					session.setAttribute("password", "true".equalsIgnoreCase("true") ? password : "");
 					session.setAttribute("user", user);
-				}
-				else
-				{
+				} else {
 					session.setAttribute("error_username", "Username or password not correctly!");
 					session.setAttribute("error_password", "Username or password not correctly!");
-					url = "/user-view/login.jsp"; 
+					url = "/user-view/login.jsp";
 				}
 			}
 		}
-		
-		
+
 //		user = UserDao.getInstance();
-		//Session
+		// Session
 		session.setAttribute("username", username);
 //		session.setAttribute("password", password);
-		
-		//xuly
-		
+
+		// xuly
+
 		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
-	
-	private void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+	private void register(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmPassword");
 		//
-		//xu ly
-		String url = "/registerInformation.jsp";
-		if((username.isBlank() || username.isEmpty()) || (password.isBlank() || password.isEmpty()))
-		{
-			if (username.isBlank() || username.isEmpty()) session.setAttribute("error_username", "Please enter username!");
-			if (password.isBlank() || password.isEmpty()) session.setAttribute("error_password", "Please enter password!");
-			if (confirmPassword.isBlank() || confirmPassword.isEmpty()) session.setAttribute("error_confirmPassword", "Please enter Confirm Password!");
-			url = "/user-view/register.jsp"; 
+		// xu ly
+		String action = request.getParameter("action");	
+		if (!action.equalsIgnoreCase("register")) {
+			session.setAttribute("error_username", "");
+			session.setAttribute("error_password", "");
 		}
-		else
-		{
-			if (UserDAO.getInstance().isAccountExitst(username)) 
-			{
+		String url = "user-view/registerInformation.jsp";
+		if ((username.isBlank() || username.isEmpty()) || (password.isBlank() || password.isEmpty())) {
+			if (username.isBlank() || username.isEmpty())
+				session.setAttribute("error_username", "Please enter username!");
+			if (password.isBlank() || password.isEmpty())
+				session.setAttribute("error_password", "Please enter password!");
+			if (confirmPassword.isBlank() || confirmPassword.isEmpty())
+				session.setAttribute("error_confirmPassword", "Please enter Confirm Password!");
+			url = "/user-view/register.jsp";
+		} else {
+			if (UserDAO.getInstance().isAccountExitst(username)) {
 				session.setAttribute("error_username", "Account already existed!");
-				url = "/user-view/register.jsp"; 
-			}
-			else
-			{
-				if(!confirmPassword.equals(password))
-				{
+				url = "/user-view/register.jsp";
+			} else {
+				if (!confirmPassword.equals(password)) {
 					session.setAttribute("error_confirmPassword", "Your password doesn't match!");
-					url = "/user-view/register.jsp"; 
-				}
-				else
+					url = "/user-view/register.jsp";
+				} else
 				{
-					User user = new User();
 					Random rd = new Random();
-					user.setUserId("0000" + rd.nextInt(1000) + 1);
+					User user = new User();
+					user.setUserId("00000" + rd.nextInt() % 10001);
 					user.setUserName(username);
 					user.setPassword(password);
 					session.setAttribute("user", user);
@@ -160,10 +153,30 @@ public class UserController extends HttpServlet {
 		}
 		session.setAttribute("username", username);
 //		session.setAttribute("password", password);
-		
+
+		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
+	}
+	private void registerInformation(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String fullname = request.getParameter("fullname");
+		String gender = request.getParameter("gender");
+		String location = request.getParameter("location");
+		String dateOfBirth = request.getParameter("dateOfBirth");
+		User user = (User)session.getAttribute("user");
+		String url = "/user-view/registerInformation.jsp";
+		if (user!=null)
+		{
+			
+		}
+		else
+		{
+			System.err.println("Don't found user from request");
+		}
+	
 		
 		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
-	
 }

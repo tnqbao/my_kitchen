@@ -19,6 +19,7 @@ String error_password = (String) session.getAttribute("error_password");
 error_password = (error_password != null) ? error_password : "";
 String error_confirmPassword = (String) session.getAttribute("error_confirmPassword");
 error_confirmPassword = (error_confirmPassword != null) ? error_confirmPassword : "";
+
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet" type="text/css"
@@ -58,7 +59,6 @@ error_confirmPassword = (error_confirmPassword != null) ? error_confirmPassword 
 				<button type="submit" style="width: 30%; height: 40px; font-weight: border: font-size: 30px; "><strong>Register</strong></button>
 			</div>
 			<div class="reference-link">
-				<a href="<%=path%>/user-view/login.jsp" class="reference-link" >Already have account? Click here!</a>
 			</div>
 			<input type="hidden" value="register" class="form" name="action">
 		</form>
