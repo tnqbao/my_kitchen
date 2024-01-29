@@ -168,10 +168,14 @@ public class UserDAO implements DAOInterface<User> {
 				Session session = sessionFactory.openSession();
 				try {
 					Transaction transaction = session.beginTransaction();
-					String hql = "from user u where u.userName = :username";
+					String hql = "from User u where u.userName = :username";
 					Query query = session.createQuery(hql);
 					query.setParameter("username", username);
-					return (query.getFirstResult()!=0) ? true : false;
+					 List<User> userList = query.getResultList();
+		                boolean exists = !userList.isEmpty();
+					System.out.println(exists);
+					transaction.commit();
+					return exists;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

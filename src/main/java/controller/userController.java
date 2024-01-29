@@ -1,7 +1,12 @@
 package controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UserDAO;
+import model.Formating;
 import model.User;
 
 /**
@@ -43,7 +49,15 @@ public class UserController extends HttpServlet {
 			register(request, response);
 			break;
 		case "registerInformation":
-			registerInformation(request, response);
+			try {
+				registerInformation(request, response);
+			} catch (ServletException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 			break;
 		case "registerEmail":
 			break;
@@ -123,7 +137,7 @@ public class UserController extends HttpServlet {
 			session.setAttribute("error_username", "");
 			session.setAttribute("error_password", "");
 		}
-		String url = "user-view/registerInformation.jsp";
+		String url = "/user-view/registerInformation.jsp";
 		if ((username.isBlank() || username.isEmpty()) || (password.isBlank() || password.isEmpty())) {
 			if (username.isBlank() || username.isEmpty())
 				session.setAttribute("error_username", "Please enter username!");
@@ -158,23 +172,55 @@ public class UserController extends HttpServlet {
 		rd.forward(request, response);
 	}
 	private void registerInformation(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, ParseException {
 		HttpSession session = request.getSession();
 		String fullname = request.getParameter("fullname");
 		String gender = request.getParameter("gender");
 		String location = request.getParameter("location");
 		String dateOfBirth = request.getParameter("dateOfBirth");
 		User user = (User)session.getAttribute("user");
-		String url = "/user-view/registerInformation.jsp";
-		if (user!=null)
+		String url = "/user-view/registerEmail.jsp";
+		boolean fullnameEmpty = (fullname.isEmpty() || fullname.isBlank());
+		boolean genderEmpty = (fullname.isEmpty() || fullname.isBlank());
+		boolean locationEmpty = (fullname.isEmpty() || fullname.isBlank());
+		boolean dateOfBirthEmpty = (fullname.isEmpty() || fullname.isBlank());
+		if (fullnameEmpty || genderEmpty || locationEmpty || dateOfBirthEmpty)
 		{
-			
+			url = "/user-view/registerInformation.jsp";
+			session.setAttribute("error_fullname", fullnameEmpty ? "Please enter your name!" : "");
+			session.setAttribute("error_gender", genderEmpty ? "Please enter your gender!" : "");
+			session.setAttribute("error_location", locationEmpty ? "Please enter your address!" : "");
+			session.setAttribute("error_dateOfBirth", dateOfBirthEmpty ? "Please enter your birthday!" : "");
 		}
 		else
-		{
-			System.err.println("Don't found user from request");
+		{	
+			if (user!=null)
+			{
+				if (!Formating.Matcher("\"^\\\\d{2}/\\\\d{2}/\\\\d{4}$\" ", dateOfBirth))
+				{
+					url = "/user-view/registerInformation";
+					session.setAttribute("error_dateOfBirth", "DD/MM/YYYY");
+				}
+				else
+				{
+					SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
+					user.setFullName(fullname);
+					user.setGender(("male".equalsIgnoreCase(gender) ? true : false));
+					user.setLocation(location);
+					user.setDateOfBirth(dateFormat.parse(dateOfBirth));
+					user.setRegistedDate(new Date(System.currentTimeMillis()));
+				}
+			}
+			else
+			{
+				System.err.println("Don't found user from request");
+				session.setAttribute("fullname", fullname);
+			}
 		}
-	
+		session.setAttribute("fullname", fullname);
+		session.setAttribute("gender", gender);
+		session.setAttribute("location", location);
+		session.setAttribute("dateofBirth", dateOfBirth);
 		
 		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);

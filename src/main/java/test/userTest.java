@@ -13,7 +13,7 @@ public class UserTest {
         User user = new User();
         user.setUserId("00000001");
         user.setUserName("usertest1");
-        user.setPassword("1234567TK");
+        user.setPassword(Encode.toSHA1("1234567TK"));
         UserDAO.getInstance().insert(user);
         System.out.println(user);
     }
