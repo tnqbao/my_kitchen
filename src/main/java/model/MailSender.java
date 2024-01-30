@@ -43,14 +43,12 @@ public class MailSender {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email_getter, false));
 			message.setSubject(title);
 			message.setContent(content, "text/HTML; charset=UTF-8");
-
 			Transport.send(message);
 
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 }

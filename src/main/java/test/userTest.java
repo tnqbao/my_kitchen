@@ -11,7 +11,6 @@ import model.User;
 public class UserTest {
     public static void main(String[] args) {
         User user = new User();
-        user.setUserId("00000001");
         user.setUserName("usertest1");
         user.setPassword(Encode.toSHA1("1234567TK"));
         UserDAO.getInstance().insert(user);

@@ -1,9 +1,12 @@
 package model;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -11,7 +14,8 @@ public class User {
 
     @Id
     @Column(unique = true, nullable = false)
-    private String userId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID userId;
 
     @Column(unique = true)
     private String userName;
@@ -32,11 +36,11 @@ public class User {
     @Column
     private Date registedDate;
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
@@ -115,7 +119,7 @@ public class User {
     public User() {
     }
 
-    public User(String userId, String userName, String password, String fullName, Boolean gender, String location,
+    public User(UUID userId, String userName, String password, String fullName, Boolean gender, String location,
             String email, String phoneNo, Date dateOfBirth, Date registedDate) {
         this.userId = userId;
         this.userName = userName;
@@ -129,7 +133,7 @@ public class User {
         this.registedDate = registedDate;
     }
 
-    public User(String userId, String userName, String password, String fullName, Boolean gender, String location,
+    public User(UUID userId, String userName, String password, String fullName, Boolean gender, String location,
             Date dateOfBirth) {
         this.userId = userId;
         this.userName = userName;

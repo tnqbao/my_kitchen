@@ -156,9 +156,7 @@ public class UserController extends HttpServlet {
 					url = "/user-view/register.jsp";
 				} else
 				{
-					Random rd = new Random();
 					User user = new User();
-					user.setUserId("00000" + rd.nextInt() % 10001);
 					user.setUserName(username);
 					user.setPassword(password);
 					session.setAttribute("user", user);
