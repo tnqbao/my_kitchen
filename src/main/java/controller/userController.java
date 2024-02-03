@@ -42,31 +42,31 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		switch (action) {
-		case "login":
-			login(request, response);
-			break;
-		case "register":
-			register(request, response);
-			break;
-		case "registerInformation":
-			try {
-				registerInformation(request, response);
-			} catch (ServletException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			break;
-		case "registerEmail":
-			break;
-		case "registerPhoneNumber":
-			break;
-		case "welcome":
-			break;
-		default:
-			break;
+			case "login":
+				login(request, response);
+				break;
+			case "register":
+				register(request, response);
+				break;
+			case "registerInformation":
+				try {
+					registerInformation(request, response);
+				} catch (ServletException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				break;
+			case "registerEmail":
+				break;
+			case "registerPhoneNumber":
+				break;
+			case "welcome":
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -113,10 +113,10 @@ public class UserController extends HttpServlet {
 			}
 		}
 
-//		user = UserDao.getInstance();
+		// user = UserDao.getInstance();
 		// Session
 		session.setAttribute("username", username);
-//		session.setAttribute("password", password);
+		// session.setAttribute("password", password);
 
 		// xuly
 
@@ -132,7 +132,7 @@ public class UserController extends HttpServlet {
 		String confirmPassword = request.getParameter("confirmPassword");
 		//
 		// xu ly
-		String action = request.getParameter("action");	
+		String action = request.getParameter("action");
 		if (!action.equalsIgnoreCase("register")) {
 			session.setAttribute("error_username", "");
 			session.setAttribute("error_password", "");
@@ -154,8 +154,7 @@ public class UserController extends HttpServlet {
 				if (!confirmPassword.equals(password)) {
 					session.setAttribute("error_confirmPassword", "Your password doesn't match!");
 					url = "/user-view/register.jsp";
-				} else
-				{
+				} else {
 					User user = new User();
 					user.setUserName(username);
 					user.setPassword(password);
@@ -164,11 +163,12 @@ public class UserController extends HttpServlet {
 			}
 		}
 		session.setAttribute("username", username);
-//		session.setAttribute("password", password);
+		// session.setAttribute("password", password);
 
 		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
+
 	private void registerInformation(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ParseException {
 		HttpSession session = request.getSession();
@@ -176,31 +176,24 @@ public class UserController extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String location = request.getParameter("location");
 		String dateOfBirth = request.getParameter("dateOfBirth");
-		User user = (User)session.getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		String url = "/user-view/registerEmail.jsp";
 		boolean fullnameEmpty = (fullname.isEmpty() || fullname.isBlank());
 		boolean genderEmpty = (fullname.isEmpty() || fullname.isBlank());
 		boolean locationEmpty = (fullname.isEmpty() || fullname.isBlank());
 		boolean dateOfBirthEmpty = (fullname.isEmpty() || fullname.isBlank());
-		if (fullnameEmpty || genderEmpty || locationEmpty || dateOfBirthEmpty)
-		{
+		if (fullnameEmpty || genderEmpty || locationEmpty || dateOfBirthEmpty) {
 			url = "/user-view/registerInformation.jsp";
 			session.setAttribute("error_fullname", fullnameEmpty ? "Please enter your name!" : "");
 			session.setAttribute("error_gender", genderEmpty ? "Please enter your gender!" : "");
 			session.setAttribute("error_location", locationEmpty ? "Please enter your address!" : "");
 			session.setAttribute("error_dateOfBirth", dateOfBirthEmpty ? "Please enter your birthday!" : "");
-		}
-		else
-		{	
-			if (user!=null)
-			{
-				if (!Formating.Matcher("\"^\\\\d{2}/\\\\d{2}/\\\\d{4}$\" ", dateOfBirth))
-				{
+		} else {
+			if (user != null) {
+				if (!Formating.Matcher("\"^\\\\d{2}/\\\\d{2}/\\\\d{4}$\" ", dateOfBirth)) {
 					url = "/user-view/registerInformation";
 					session.setAttribute("error_dateOfBirth", "DD/MM/YYYY");
-				}
-				else
-				{
+				} else {
 					SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
 					user.setFullName(fullname);
 					user.setGender(("male".equalsIgnoreCase(gender) ? true : false));
@@ -208,9 +201,7 @@ public class UserController extends HttpServlet {
 					user.setDateOfBirth(dateFormat.parse(dateOfBirth));
 					user.setRegistedDate(new Date(System.currentTimeMillis()));
 				}
-			}
-			else
-			{
+			} else {
 				System.err.println("Don't found user from request");
 				session.setAttribute("fullname", fullname);
 			}
@@ -219,8 +210,13 @@ public class UserController extends HttpServlet {
 		session.setAttribute("gender", gender);
 		session.setAttribute("location", location);
 		session.setAttribute("dateofBirth", dateOfBirth);
-		
+
 		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
+	}
+
+	private void registerEmail(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ParseException {
+
 	}
 }
