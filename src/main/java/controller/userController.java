@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -60,6 +57,15 @@ public class UserController extends HttpServlet {
 				}
 				break;
 			case "registerEmail":
+				try {
+					registerEmail(request, response);
+				} catch (ServletException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 				break;
 			case "registerPhoneNumber":
 				break;
@@ -217,6 +223,19 @@ public class UserController extends HttpServlet {
 
 	private void registerEmail(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ParseException {
+		String email = request.getParameter("email");
+		String verifyCode = request.getParameter("verrifyCode");
+		HttpSession session = request.getSession();
+		if (email == null) {
 
+		} else {
+			if (verifyCode == null) {
+
+			} else {
+				// code
+			}
+		}
+
+		session.setAttribute("email", email);
 	}
 }
