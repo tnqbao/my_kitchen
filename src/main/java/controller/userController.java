@@ -232,7 +232,7 @@ public class UserController extends HttpServlet {
 			if (verifyCode == null) {
 
 			} else {
-				// code
+				
 			}
 		}
 
