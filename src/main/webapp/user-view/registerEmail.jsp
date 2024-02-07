@@ -34,12 +34,19 @@
 					<strong>Email</strong>
 				</h1>
 			</div>
+
 			<div class="input-box">
 				<input type="text" placeholder="Email" name="email"
 					value="<%=email%>">
 				<p class="error">
 					<%=error_email%>
 				</p>
+			</div>
+			<div class="submit-button">
+				<button type="submit"
+					style="width: 30%; height: 40px; font-weight: border: font-size: 30px;">
+					<i class="fa-solid fa-check"></i>
+				</button>
 			</div>
 			<div class="input-box">
 				<input type="text" placeholder="Verify-code" name="location"
