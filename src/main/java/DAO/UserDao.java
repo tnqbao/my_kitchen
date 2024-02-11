@@ -186,7 +186,7 @@ public class UserDAO implements DAOInterface<User> {
 		return false;
 	}
 
-	public boolean isEmailExitsted(String email) {
+	public boolean isEmailNotExitsted(String email) {
 		SessionFactory sessionFactory = HibernateUlti.getSessionFactory();
 		if (sessionFactory != null) {
 			try {

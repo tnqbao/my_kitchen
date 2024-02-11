@@ -16,12 +16,9 @@
 	<%
 	String phoneNumber = (String) session.getAttribute("phoneNumber");
 	phoneNumber = (phoneNumber != null) ? phoneNumber : "";
-	String verifyCode = (String) session.getAttribute("verifyCode");
-	verifyCode = (verifyCode != null) ? verifyCode : "";
 	String error_phoneNumber = (String) session.getAttribute("error_phoneNumber");
 	error_phoneNumber = (error_phoneNumber != null) ? error_phoneNumber : "";
-	String error_verifyCode = (String) session.getAttribute("error_verifyCode");
-	error_verifyCode = (error_verifyCode != null) ? error_verifyCode : "";
+	User tempUser = (User)session.getAttribute("tempUser");
 	%>
 
 <body>
@@ -41,13 +38,6 @@
 					<%=error_phoneNumber%>
 				</p>
 			</div>
-			<div class="input-box">
-				<input type="text" placeholder="Verify-code" name="location"
-					value="<%=verifyCode%>">
-				<p class="error">
-					<%=error_verifyCode%>
-				</p>
-			</div>
 			<div class="submit-button">
 				<button type="submit"
 					style="width: 30%; height: 40px; font-weight: border: font-size: 30px;">
@@ -55,7 +45,7 @@
 				</button>
 			</div>
 			<div class="reference-link">
-			<a href="<%= path %>/user-view/registerPhoneNumber.jsp?user=<%= user%>" style="color: black; text-decoration: underline;"> SKIP</a>
+			<a href="<%= path %>/user-view/registerPhoneNumber.jsp?tempUser=<%= tempUser%>" style="color: black; text-decoration: underline;"> <strong>SKIP</strong></a>
 			</div>
 			<input type="hidden" value="registerphoneNumber" class="form"
 				name="action">

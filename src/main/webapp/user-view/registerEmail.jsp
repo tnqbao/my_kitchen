@@ -16,12 +16,9 @@
 	<%
 	String email = (String) session.getAttribute("email");
 	email = (email != null) ? email : "";
-	String verifyCode = (String) session.getAttribute("verifyCode");
-	verifyCode = (verifyCode != null) ? verifyCode : "";
 	String error_email = (String) session.getAttribute("error_email");
 	error_email = (error_email != null) ? error_email : "";
-	String error_verifyCode = (String) session.getAttribute("error_verifyCode");
-	error_verifyCode = (error_verifyCode != null) ? error_verifyCode : "";
+	User tempUser = (User)session.getAttribute("tempUser");
 	%>
 
 <body>
@@ -51,8 +48,8 @@
 				</button>
 			</div>
 			<div class="reference-link">
-				<a href="<%=path%>/user-view/registerPhoneNumber.jsp?user=<%=user%>"
-					style="color: black; text-decoration: underline;"> SKIP</a>
+				<a href="<%=path%>/user-view/registerPhoneNumber.jsp?tempUser=<%=tempUser%>"
+					style="color: black; text-decoration: underline;"> <strong>SKIP</strong></a>
 			</div>
 			<input type="hidden" value="registerEmail" class="form" name="action">
 		</form>

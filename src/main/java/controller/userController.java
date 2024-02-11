@@ -161,10 +161,10 @@ public class UserController extends HttpServlet {
 					session.setAttribute("error_confirmPassword", "Your password doesn't match!");
 					url = "/user-view/register.jsp";
 				} else {
-					User user = new User();
-					user.setUserName(username);
-					user.setPassword(password);
-					session.setAttribute("user", user);
+					User tempUser = new User();
+					tempUser.setUserName(username);
+					tempUser.setPassword(password);
+					session.setAttribute("tempUser", tempUser);
 				}
 			}
 		}
@@ -182,7 +182,7 @@ public class UserController extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String location = request.getParameter("location");
 		String dateOfBirth = request.getParameter("dateOfBirth");
-		User user = (User) session.getAttribute("user");
+		User tempUser = (User) session.getAttribute("tempUser");
 		String url = "/user-view/registerEmail.jsp";
 		boolean fullnameEmpty = (fullname.isEmpty() || fullname.isBlank());
 		boolean genderEmpty = (fullname.isEmpty() || fullname.isBlank());
@@ -195,17 +195,17 @@ public class UserController extends HttpServlet {
 			session.setAttribute("error_location", locationEmpty ? "Please enter your address!" : "");
 			session.setAttribute("error_dateOfBirth", dateOfBirthEmpty ? "Please enter your birthday!" : "");
 		} else {
-			if (user != null) {
-				if (!Formating.Matcher("\"^\\\\d{2}/\\\\d{2}/\\\\d{4}$\" ", dateOfBirth)) {
-					url = "/user-view/registerInformation";
+			if (tempUser != null) {
+				if (!Formating.Matcher("^\\d{2}/\\d{2}/\\d{4}$", dateOfBirth)) {
+					url = "/user-view/registerInformation.jsp";
 					session.setAttribute("error_dateOfBirth", "DD/MM/YYYY");
 				} else {
 					SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
-					user.setFullName(fullname);
-					user.setGender(("male".equalsIgnoreCase(gender) ? true : false));
-					user.setLocation(location);
-					user.setDateOfBirth(dateFormat.parse(dateOfBirth));
-					user.setRegistedDate(new Date(System.currentTimeMillis()));
+					tempUser.setFullName(fullname);
+					tempUser.setGender(("male".equalsIgnoreCase(gender) ? true : false));
+					tempUser.setLocation(location);
+					tempUser.setDateOfBirth(dateFormat.parse(dateOfBirth));
+					tempUser.setRegistedDate(new Date(System.currentTimeMillis()));
 				}
 			} else {
 				System.err.println("Don't found user from request");
@@ -225,7 +225,7 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException, ParseException {
 		String email = request.getParameter("email");
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");
+		User tempUser = (User)session.getAttribute("tempUser");
 		String url = "/user-view/registerPhoneNumber.jsp";
 		if (email == null) {
 			session.setAttribute("error_email", "Please enter your email!");
@@ -233,16 +233,16 @@ public class UserController extends HttpServlet {
 		}
 		else
 		{
-			if (UserDAO.getInstance().isEmailExitsted(email))
+			if (!UserDAO.getInstance().isEmailNotExitsted(email))
 			{
 				session.setAttribute("error_email", "Email already existed!");
 				url = "/user-view/registerEmail.jsp";
 			}
 			else
 			{
-				if (user!=null)
+				if (tempUser!=null)
 				{
-					user.setEmail(email);
+					tempUser.setEmail(email);
 				}
 				else
 				{
