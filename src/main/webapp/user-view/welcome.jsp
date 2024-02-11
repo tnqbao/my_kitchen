@@ -14,14 +14,7 @@
 </head>
 <body>
 	<%
-	String phoneNumber = (String) session.getAttribute("phoneNumber");
-	phoneNumber = (phoneNumber != null) ? phoneNumber : "";
-	String verifyCode = (String) session.getAttribute("verifyCode");
-	verifyCode = (verifyCode != null) ? verifyCode : "";
-	String error_phoneNumber = (String) session.getAttribute("error_phoneNumber");
-	error_phoneNumber = (error_phoneNumber != null) ? error_phoneNumber : "";
-	String error_verifyCode = (String) session.getAttribute("error_verifyCode");
-	error_verifyCode = (error_verifyCode != null) ? error_verifyCode : "";
+	User tempUser = (User)session.getAttribute("tempUser");
 	%>
 
 <body>

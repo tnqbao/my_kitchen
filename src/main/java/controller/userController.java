@@ -48,28 +48,32 @@ public class UserController extends HttpServlet {
 		case "registerInformation":
 			try {
 				registerInformation(request, response);
-			} catch (ServletException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
+			} catch (ServletException | IOException | ParseException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
 		case "registerEmail":
 			try {
 				registerEmail(request, response);
-			} catch (ServletException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
+			} catch (ServletException | IOException | ParseException e) {
 				e.printStackTrace();
 			}
 			break;
 		case "registerPhoneNumber":
+			try {
+				registerPhoneNumber(request, response);
+			} catch (ServletException | IOException | ParseException e) {
+				e.printStackTrace();
+			}
 			break;
 		case "welcome":
+			try {
+				welcome(request, response);
+			} catch (ServletException | IOException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		default:
 			break;
@@ -225,32 +229,64 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException, ParseException {
 		String email = request.getParameter("email");
 		HttpSession session = request.getSession();
-		User tempUser = (User)session.getAttribute("tempUser");
+		User tempUser = (User) session.getAttribute("tempUser");
 		String url = "/user-view/registerPhoneNumber.jsp";
 		if (email == null) {
 			session.setAttribute("error_email", "Please enter your email!");
 			url = "/user-view/registerEmail.jsp";
-		}
-		else
-		{
-			if (!UserDAO.getInstance().isEmailNotExitsted(email))
-			{
+		} else {
+			if (!UserDAO.getInstance().isEmailNotExitsted(email)) {
 				session.setAttribute("error_email", "Email already existed!");
 				url = "/user-view/registerEmail.jsp";
-			}
-			else
-			{
-				if (tempUser!=null)
-				{
+			} else {
+				if (tempUser != null) {
 					tempUser.setEmail(email);
-				}
-				else
-				{
+				} else {
 					url = "/user-view/registerEmail.jsp";
 				}
 			}
 		}
 		session.setAttribute("email", email);
+		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
+	}
+
+	private void registerPhoneNumber(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ParseException {
+		String phoneNumber = request.getParameter("phoneNumber");
+		HttpSession session = request.getSession();
+		User tempUser = (User) session.getAttribute("tempUser");
+		String url = "/user-view/welcome.jsp";
+		if (phoneNumber == null) {
+			session.setAttribute("error_email", "Please enter your email!");
+			url = "/user-view/registerPhoneNumber.jsp";
+		} else {
+			if (!UserDAO.getInstance().isEmailNotExitsted(phoneNumber)) {
+				session.setAttribute("error_phoneNumber", "Phone Number already existed!");
+				url = "/user-view/registerEmail.jsp";
+			} else {
+				if (tempUser != null) {
+					tempUser.setEmail(phoneNumber);
+				} else {
+					url = "/user-view/registerPhoneNumber.jsp";
+				}
+			}
+		}
+		session.setAttribute("phoneNumber", phoneNumber);
+		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
+	}
+	
+	private void welcome(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ParseException {
+		HttpSession session = request.getSession();
+		User tempUser = (User) session.getAttribute("tempUser");
+		String url = "/index.jsp";
+		if (tempUser != null) {
+			UserDAO.getInstance().insert(tempUser);
+		} else {
+			url = "/user-view/register.jsp";
+		}
 		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
