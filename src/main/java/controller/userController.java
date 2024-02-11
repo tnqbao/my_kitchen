@@ -261,12 +261,12 @@ public class UserController extends HttpServlet {
 			session.setAttribute("error_email", "Please enter your email!");
 			url = "/user-view/registerPhoneNumber.jsp";
 		} else {
-			if (!UserDAO.getInstance().isEmailNotExitsted(phoneNumber)) {
+			if (!UserDAO.getInstance().isPhoneNumberNotExitsted(phoneNumber)) {
 				session.setAttribute("error_phoneNumber", "Phone Number already existed!");
-				url = "/user-view/registerEmail.jsp";
+				url = "/user-view/registerPhoneNumber.jsp";
 			} else {
 				if (tempUser != null) {
-					tempUser.setEmail(phoneNumber);
+					tempUser.setPhoneNo(phoneNumber);
 				} else {
 					url = "/user-view/registerPhoneNumber.jsp";
 				}
