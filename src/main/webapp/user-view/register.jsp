@@ -32,7 +32,7 @@ error_confirmPassword = (error_confirmPassword != null) ? error_confirmPassword 
 		<form class="form" name="register-form" id="register-form"
 			action="<%=path%>/UserController" method="post">
 			<div class="label">
-				<h1>Register</h1>
+				<h1>Create an account</h1>
 			</div>
 			<div class="input-box">
 				<input type="text" placeholder="Username" name="username"

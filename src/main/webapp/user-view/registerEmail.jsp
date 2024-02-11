@@ -36,24 +36,13 @@
 			</div>
 
 			<div class="input-box">
-				<input type="text" placeholder="Email" name="email"
-					value="<%=email%>">
-				<p class="error">
-					<%=error_email%>
-				</p>
-			</div>
-			<div class="submit-button">
-				<button type="submit"
-					style="width: 30%; height: 40px; font-weight: border: font-size: 30px;">
-					<i class="fa-solid fa-check"></i>
-				</button>
-			</div>
-			<div class="input-box">
-				<input type="text" placeholder="Verify-code" name="location"
-					value="<%=verifyCode%>">
-				<p class="error">
-					<%=error_verifyCode%>
-				</p>
+				<div class="input-box">
+					<input type="text" placeholder="Email" name="email"
+						value="<%=email%>" style="width: 85%; margin-right: 0">
+					<p class="error">
+						<%=error_email%>
+					</p>
+				</div>
 			</div>
 			<div class="submit-button">
 				<button type="submit"
@@ -62,10 +51,10 @@
 				</button>
 			</div>
 			<div class="reference-link">
-			<a href="<%= path %>/user-view/registerPhoneNumber.jsp?user=<%= user%>" style="color: black; text-decoration: underline;"> SKIP</a>
+				<a href="<%=path%>/user-view/registerPhoneNumber.jsp?user=<%=user%>"
+					style="color: black; text-decoration: underline;"> SKIP</a>
 			</div>
-			<input type="hidden" value="registerEmail" class="form"
-				name="action">
+			<input type="hidden" value="registerEmail" class="form" name="action">
 		</form>
 	</div>
 </body>

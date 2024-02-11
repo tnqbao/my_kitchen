@@ -185,19 +185,34 @@ public class UserDAO implements DAOInterface<User> {
 		}
 		return false;
 	}
-	
-	/*
-	 * public boolean isIdExitsted(String id) { SessionFactory sessionFactory =
-	 * HibernateUlti.getSessionFactory(); if (sessionFactory != null) { try {
-	 * Session session = sessionFactory.openSession(); try { Transaction transaction
-	 * = session.beginTransaction(); String hql = "from User u where u.id = :id";
-	 * Query query = session.createQuery(hql); query.setParameter("username",
-	 * username); List<User> userList = query.getResultList(); boolean exists =
-	 * !userList.isEmpty(); System.out.println(exists); transaction.commit(); return
-	 * exists; } catch (Exception e) { e.printStackTrace(); } finally {
-	 * session.close(); } } catch (HibernateException e) { e.printStackTrace(); } }
-	 * return false; }
-	 */
+
+	public boolean isEmailExitsted(String email) {
+		SessionFactory sessionFactory = HibernateUlti.getSessionFactory();
+		if (sessionFactory != null) {
+			try {
+				Session session = sessionFactory.openSession();
+				try {
+					Transaction transaction = session.beginTransaction();
+					String hql = "from User u where u.email = :email";
+					Query query = session.createQuery(hql);
+					query.setParameter("email", email);
+					List<User> userList = query.getResultList();
+					boolean exists = userList.isEmpty();
+					System.out.println(exists);
+					transaction.commit();
+					return exists;
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					session.close();
+				}
+			} catch (HibernateException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 	public static UserDAO getInstance() {
 		return new UserDAO();
 	}

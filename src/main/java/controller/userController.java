@@ -39,40 +39,40 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		switch (action) {
-			case "login":
-				login(request, response);
-				break;
-			case "register":
-				register(request, response);
-				break;
-			case "registerInformation":
-				try {
-					registerInformation(request, response);
-				} catch (ServletException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				break;
-			case "registerEmail":
-				try {
-					registerEmail(request, response);
-				} catch (ServletException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				break;
-			case "registerPhoneNumber":
-				break;
-			case "welcome":
-				break;
-			default:
-				break;
+		case "login":
+			login(request, response);
+			break;
+		case "register":
+			register(request, response);
+			break;
+		case "registerInformation":
+			try {
+				registerInformation(request, response);
+			} catch (ServletException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "registerEmail":
+			try {
+				registerEmail(request, response);
+			} catch (ServletException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "registerPhoneNumber":
+			break;
+		case "welcome":
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -224,18 +224,34 @@ public class UserController extends HttpServlet {
 	private void registerEmail(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ParseException {
 		String email = request.getParameter("email");
-		String verifyCode = request.getParameter("verrifyCode");
 		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		String url = "/user-view/registerPhoneNumber.jsp";
 		if (email == null) {
-
-		} else {
-			if (verifyCode == null) {
-
-			} else {
-				
+			session.setAttribute("error_email", "Please enter your email!");
+			url = "/user-view/registerEmail.jsp";
+		}
+		else
+		{
+			if (UserDAO.getInstance().isEmailExitsted(email))
+			{
+				session.setAttribute("error_email", "Email already existed!");
+				url = "/user-view/registerEmail.jsp";
+			}
+			else
+			{
+				if (user!=null)
+				{
+					user.setEmail(email);
+				}
+				else
+				{
+					url = "/user-view/registerEmail.jsp";
+				}
 			}
 		}
-
 		session.setAttribute("email", email);
+		RequestDispatcher rd = request.getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 }
