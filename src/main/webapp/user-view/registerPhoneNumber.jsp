@@ -45,7 +45,7 @@
 				</button>
 			</div>
 			<div class="reference-link">
-			<a href="<%= path %>/user-view/registerPhoneNumber.jsp?tempUser=<%= tempUser%>" style="color: black; text-decoration: underline;"> <strong>SKIP</strong></a>
+			<a href="<%= path %>/user-view/registerPhoneNumber.jsp" style="color: black; text-decoration: underline;"> <strong>SKIP</strong></a>
 			</div>
 			<input type="hidden" value="registerphoneNumber" class="form"
 				name="action">

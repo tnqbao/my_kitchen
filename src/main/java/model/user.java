@@ -150,5 +150,9 @@ public class User {
                 + registedDate + "]";
     }
     
+    public String getStringToLink()
+    {
+    	return "userId=" + this.userId ;
+    }
     //good luck
 }
